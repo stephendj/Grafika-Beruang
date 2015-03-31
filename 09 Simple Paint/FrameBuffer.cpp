@@ -175,6 +175,103 @@ public:
 		}
 	}
 
+	void floodFillPolygon(int x, int y, int r_new, int g_new, int b_new, int t_new, int r_old, int g_old, int b_old, int t_old){
+		int r=getRed(x,y);
+		int g=getGreen(x,y);
+		int b=getBlue(x,y);
+		int t=getTransparent(x,y);
+		if (r==r_old && g==g_old && b==b_old && t==t_old){
+			putPixel(Point(x,y),r_new,g_new,b_new,t_new);
+			floodFillPolygon(x-1,y,r_new,g_new,b_new,t_new,r_old,g_old,b_old,t_old);
+			floodFillPolygon(x,y-1,r_new,g_new,b_new,t_new,r_old,g_old,b_old,t_old);
+			floodFillPolygon(x+1,y,r_new,g_new,b_new,t_new,r_old,g_old,b_old,t_old);
+			floodFillPolygon(x,y+1,r_new,g_new,b_new,t_new,r_old,g_old,b_old,t_old);
+		}
+	}
+
+	void drawPatternedPolygon(int x, int y, Pattern pattern, int pa_r, int pa_g, int pa_b, int pa_t, int po_r, int po_g, int po_b, int po_t) {
+		//drawPolygon(polygon,po_r,po_g,po_b,po_t);
+		Point mid(x%15,y%15);
+		if(pattern.M[mid.y][mid.x]==1) {
+			int r=getRed(x,y);
+			int g=getGreen(x,y);
+			int b=getBlue(x,y);
+			int t=getTransparent(x,y);
+			if (r==0 && g==0 && b==0 && t==0){
+				putPixel(Point(x,y),pa_r,pa_g,pa_b,pa_t);
+				drawPatternedPolygon(x-1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+				drawPatternedPolygon(x,y-1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+				drawPatternedPolygon(x+1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+				drawPatternedPolygon(x,y+1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+			}
+		} else if(pattern.M[mid.y][mid.x]==0) {
+			int r=getRed(x,y);
+			int g=getGreen(x,y);
+			int b=getBlue(x,y);
+			int t=getTransparent(x,y);
+			if (r==0 && g==0 && b==0 && t==0){
+				putPixel(Point(x,y),po_r,po_g,po_b,po_t);
+				drawPatternedPolygon(x-1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+				drawPatternedPolygon(x,y-1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+				drawPatternedPolygon(x+1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+				drawPatternedPolygon(x,y+1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+			}
+		}
+
+	}
+
+	void scanLinePolygon(Polygon polygon, int r, int g, int b, int t) {
+		int x,y;
+		int n = polygon.n-1;
+
+		//Draw polygon
+		drawPolygon(polygon, r, g, b, t);
+
+		//Process
+		float slope[n];
+		int line[n];
+		for (int i=0; i<n; ++i) {
+			int dx = polygon.e[i+1].x - polygon.e[i].x;
+			int dy = polygon.e[i+1].y - polygon.e[i].y;
+
+			if (dy == 0) slope[i] = 1;
+			if (dx == 0) slope[i] = 0;
+
+			//Calculate inverse slope
+			if (dx != 0 && dy != 0) {
+				slope[i] = (float) dx/dy;
+			}
+		}
+
+		vector<Line> lines;
+		for (int y=0; y<600; ++y) {
+			int k = 0;
+			// Cari titik perpotongan
+			for (int i=0; i<n; ++i) {
+				if (polygon.e[i].y <= y && polygon.e[i+1].y > y || 
+					polygon.e[i+1].y <= y && polygon.e[i].y > y) {
+					line[k] = (int) (polygon.e[i].x + slope[i] * (y - polygon.e[i].y));
+					++k;
+				}
+			}
+
+			// Arrange x-intersections in order
+			for (int j=0; j<k-1; ++j) {
+				for (int i=0; i<k-1; ++i) {
+					if (line[i] > line[i+1]) {
+						int temp = line[i];
+						line[i] = line[i+1];
+						line[i+1] = temp;
+					}
+				}
+			}
+
+			for (int i=0; i<k; i+=2) {
+				drawLine(Point(line[i], y), Point(line[i+1], y), r, g, b, t);
+			}
+		}
+	}
+
 	int getBlue(int x, int y) {
 		int blue;
 		int rumus = x * 4 + y * finfo.line_length;

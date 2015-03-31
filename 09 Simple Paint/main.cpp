@@ -30,12 +30,11 @@ int main() {
 	FrameBuffer fb;
 	int k, x=400, y=300;
 	Cuboid c(Point(380,280,90), 40, 40, 40);
-	bool quit = false;
 
-	system("clear");
 	fb.drawCuboid(c, Point(x,y,200), 255, 0, 0, 0);
-	
-	while(!quit) {
+	string input = "";
+
+	while(!input.equals("exit") == 0) {
 		if (kbhit()) {
 			k = getchar();
 			if (k != 'q'){
@@ -56,5 +55,6 @@ int main() {
 			}
 		}
 	}
+
 	return 0;
 }
