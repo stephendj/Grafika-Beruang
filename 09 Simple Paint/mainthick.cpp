@@ -13,6 +13,7 @@
 #include "Point.hpp"
 #include "Polygon.hpp"
 #include "FrameBuffer.cpp"
+<<<<<<< HEAD
 #include "Box.hpp"
 
 using namespace std;
@@ -176,10 +177,22 @@ Color pickPolygonColor(){
 int main()
 {
 	
+=======
+
+using namespace std;
+
+int main()
+{
+	FrameBuffer FB;
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 	int input = 0;
 	int num_dot, radius;
 	FILE *fmouse;
 	char b[3];
+<<<<<<< HEAD
+=======
+	fmouse = fopen("/dev/input/mice","r");
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 
 	while(input!=999) {
 		while(input!=1 && input!=2 && input!=3 && input!=999) {
@@ -190,6 +203,7 @@ int main()
 			cout << "Input : ";
 			cin >> input;	
 		}
+<<<<<<< HEAD
 		
 		Color temp1;		
 		showColorPicker();
@@ -197,10 +211,14 @@ int main()
 		
 		fmouse = fopen("/dev/input/mice","r");
 		
+=======
+
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 		if(input==999) {
 			exit(0);
 		} else if(input==1) {
 			num_dot = 3;
+<<<<<<< HEAD
 			getchar();
 			temp1 = pickPolygonColor();
 		} else if(input==2) {
@@ -211,11 +229,20 @@ int main()
 			num_dot = 1;
 			getchar();
 			temp1 = pickPolygonColor();
+=======
+		} else if(input==2) {
+			num_dot = 4;
+		} else if(input==3) {
+			num_dot = 1;
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 			cout << "Masukkan radius : ";
 			cin >> radius;
 		}
 
+<<<<<<< HEAD
 		FB.drawSquare(Point(0,0), Point(799,599),0,0,0,0);
+=======
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 		Polygon cursor ("mouse");
 		FB.drawPolygon(cursor, 0,255,100,0);
 
@@ -269,12 +296,22 @@ int main()
 		
 		Polygon temp(listOfPoints);
 		if(input!=3) {
+<<<<<<< HEAD
 			FB.scanLinePolygon(temp, temp1.red, temp1.green, temp1.blue, temp1.trans);	
 		} else {
 			FB.drawFilledCircle(Circle(temp.e[0], radius), temp1.red, temp1.green, temp1.blue, temp1.trans);
 		}
 		
 		getchar();
+=======
+			FB.scanLinePolygon(temp, 255, 0, 0, 0);	
+		} else {
+			FB.drawFilledCircle(Circle(temp.e[0], radius), 255, 0, 0, 0);
+		}
+		
+		getchar();
+		getchar();
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 		input = 0;
 	}
 

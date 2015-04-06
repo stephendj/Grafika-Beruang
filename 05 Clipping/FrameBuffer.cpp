@@ -1,17 +1,9 @@
 #include "Line.hpp"
 #include "Polygon.hpp"
-#include "Circle.hpp"
-<<<<<<< HEAD
-#include "Box.hpp"
+#include "View.hpp"
 
 class FrameBuffer {
 public:
-
-=======
-
-class FrameBuffer {
-public:
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 	FrameBuffer() {
 		fbfd = open("/dev/fb0",O_RDWR);
 		if (!fbfd) {
@@ -55,34 +47,34 @@ public:
         *(fbp + location + 3) = t; // transparency
 	}
 
-	void drawFilledCircle(Circle C, int r, int g, int b, int t) {
-	  int x = C.r;
-	  int y = 0;
-	  int radiusError = 1-x;
+	// void drawFilledCircle(Circle C, int r, int g, int b, int t) {
+	//   int x = C.r;
+	//   int y = 0;
+	//   int radiusError = 1-x;
 	 
-	  while(x >= y)
-	  {
-    	for (int it = -x; it <= x; ++it)
-			putPixel(Point(it+C.P.x, y+C.P.y), r,g,b,t);
-		for (int it = -y; it <= y; ++it)
-			putPixel(Point(it+C.P.x, x+C.P.y), r,g,b,t);
-		for (int it = -x; it <= x; ++it)
-			putPixel(Point(it+C.P.x, -y+C.P.y), r,g,b,t);
-		for (int it = -y; it <= y; ++it)
-			putPixel(Point(it+C.P.x, -x+C.P.y), r,g,b,t);
+	//   while(x >= y)
+	//   {
+ //    	for (int it = -x; it <= x; ++it)
+	// 		putPixel(Point(it+C.P.x, y+C.P.y), r,g,b,t);
+	// 	for (int it = -y; it <= y; ++it)
+	// 		putPixel(Point(it+C.P.x, x+C.P.y), r,g,b,t);
+	// 	for (int it = -x; it <= x; ++it)
+	// 		putPixel(Point(it+C.P.x, -y+C.P.y), r,g,b,t);
+	// 	for (int it = -y; it <= y; ++it)
+	// 		putPixel(Point(it+C.P.x, -x+C.P.y), r,g,b,t);
 
-	    y++;
-	    if (radiusError<0)
-	    {
-	      radiusError += 2 * y + 1;
-	    }
-	    else
-	    {
-	      x--;
-	      radiusError += 2 * (y - x) + 1;
-	    }
-	  }
-	}
+	//     y++;
+	//     if (radiusError<0)
+	//     {
+	//       radiusError += 2 * y + 1;
+	//     }
+	//     else
+	//     {
+	//       x--;
+	//       radiusError += 2 * (y - x) + 1;
+	//     }
+	//   }
+	// }
 
 	void drawLine(Point P1, Point P2, int r, int g, int b, int t) {
 		int dx =  abs(P2.x-P1.x), sx = P1.x<P2.x ? 1 : -1;
@@ -100,24 +92,24 @@ public:
 	   	}
 	}
 
-	void drawThickLine(Point P1, Point P2, int r, int g, int b, int t) {
-		int dx =  abs(P2.x-P1.x), sx = P1.x<P2.x ? 1 : -1;
-	   	int dy = -abs(P2.y-P1.y), sy = P1.y<P2.y ? 1 : -1; 
-	   	int err = dx+dy, e2; /* error value e_xy */
+	// void drawThickLine(Point P1, Point P2, int r, int g, int b, int t) {
+	// 	int dx =  abs(P2.x-P1.x), sx = P1.x<P2.x ? 1 : -1;
+	//    	int dy = -abs(P2.y-P1.y), sy = P1.y<P2.y ? 1 : -1; 
+	//    	int err = dx+dy, e2; /* error value e_xy */
 	 	
-	 	float it=1;
-	   	for(;;){  /* loop */
-	   		Point Ptemp(P1.x,P1.y);
+	//  	float it=1;
+	//    	for(;;){  /* loop */
+	//    		Point Ptemp(P1.x,P1.y);
 
-	    	drawFilledCircle(Circle(P1,it),r,g,b,t);
-	    	it+=0.07;
+	//     	drawFilledCircle(Circle(P1,it),r,g,b,t);
+	//     	it+=0.07;
 	    	
-	      	if (P1.x==P2.x && P1.y==P2.y) break;
-	      	e2 = 2*err;
-	      	if (e2 >= dy) { err += dy; P1.x += sx; } /* e_xy+e_x > 0 */
-	      	if (e2 <= dx) { err += dx; P1.y += sy; } /* e_xy+e_y < 0 */
-	   	}
-	}
+	//       	if (P1.x==P2.x && P1.y==P2.y) break;
+	//       	e2 = 2*err;
+	//       	if (e2 >= dy) { err += dy; P1.x += sx; } /* e_xy+e_x > 0 */
+	//       	if (e2 <= dx) { err += dx; P1.y += sy; } /* e_xy+e_y < 0 */
+	//    	}
+	// }
 
 	void drawDash(Point P1, Point P2, int r, int g, int b, int t) {
 		int dx =  abs(P2.x-P1.x), sx = P1.x<P2.x ? 1 : -1;
@@ -167,50 +159,12 @@ public:
 		}
 	}
 
-	/*void drawPolygon3D(Polygon3D P3d, int r, int g, int b, int t){
-		drawPolygon(P3d.atas,r,g,b,t);
-		drawPolygon(P3d.bawah,r,g,b,t);
-		for(int i=0; i<P3d.P.size(); i++){
-			drawPolygon(P3d.P[i],r,g,b,t);
-		}
-		for(int i=0; i<P3d.L.size(); i++){
-			drawLine(P3d.L[i].src, P3d.L[i].dest, 255, 255, 255, 0);
-		}
-	}*/
-
-/*	void drawPolygonsUsingPainter(vector<Polygon3D> ps) {
-		// bubble sort
-		for (int i=0; i<ps.size()-1; ++i) {
-			for (int j=i+1; j<ps.size(); ++j) {
-				Polygon3D temp;
-				if (ps[i].bawah.e[0].z > ps[j].bawah.e[0].z) {
-					temp = ps[i];
-					ps[i] = ps[j];
-					ps[j] = temp;
-				}
-			}
-		}
-
-		for (int i=0; i<ps.size(); ++i) {
-			drawPolygon3D(ps[i], ps[i].bawah.r, ps[i].bawah.g, ps[i].bawah.b, ps[i].bawah.t);
-			scanLinePolygon(ps[i].bawah, ps[i].bawah.r, ps[i].bawah.g, ps[i].bawah.b, ps[i].bawah.t);
-			for(int j=0; j<ps[i].L.size(); j++) {
-				drawLine(ps[i].L[j].src, ps[i].L[j].dest, 0, 0, 0, 0);
-			}
-			for(int j=0; j<ps[i].P.size(); j++) {
-				scanLinePolygon(ps[i].P[j], 100, 100, 100, 0);
-			}
-			scanLinePolygon(ps[i].atas, ps[i].atas.r, ps[i].atas.g, ps[i].atas.b, ps[i].atas.t);
-		}
-	}*/
-
-/*
-	void drawBaling(Baling baling, int r, int g, int b, int t) {
-		drawPolygon(baling.baling1,r,g,b,t);
-		drawPolygon(baling.baling2,r,g,b,t);
-		drawPolygon(baling.baling3,r,g,b,t);
-		DrawCircle(baling.poros.P.x,baling.poros.P.y,baling.poros.r,r,g,b,t);
-	}*/
+	// void drawBaling(Baling baling, int r, int g, int b, int t) {
+	// 	scanLinePolygon(baling.baling1,r,g,b,t);
+	// 	scanLinePolygon(baling.baling2,r,g,b,t);
+	// 	scanLinePolygon(baling.baling3,r,g,b,t);
+	// 	drawFilledCircle(baling.poros,r,g,b,t);
+	// }
 
 	void drawSquare(Point P1, Point P2, int r, int g, int b, int t) {
 		for(int i=P1.x;i<=P2.x;i++) {
@@ -250,33 +204,34 @@ public:
 	  }
 	}
 	
-/*	void drawBalloon(Balloon balloon, int r, int g, int b, int t) {
-		drawLine(balloon.l[0].src, balloon.l[0].dest, r, g, b, t);
-		drawLine(balloon.l[1].src, balloon.l[1].dest, r, g, b, t);
-		//drawFilledCircle(balloon.c, r, g, b, t);
-		drawPolygon(balloon.cp, r, g, b, t);
-		drawPolygon(balloon.p, r, g, b, t);
-		scanLinePolygon(balloon.p, r, g, b, t);
-	}
+	// void drawBalloon(Balloon balloon, int r, int g, int b, int t) {
+	// 	drawLine(balloon.l[0].src, balloon.l[0].dest, r, g, b, t);
+	// 	drawLine(balloon.l[1].src, balloon.l[1].dest, r, g, b, t);
+	// 	drawFilledCircle(balloon.c, r, g, b, t);
+	// 	drawPolygon(balloon.p, r, g, b, t);
+	// 	scanLinePolygon(balloon.p, r, g, b, t);
+	// }
 
-	bool isShot(int x, int y, Helikopter p) {
-		int maxX = p.getBodyMaxX();
-		int maxY = p.getBodyMaxY();
-		int minX = p.getBodyMinX();
-		int minY = p.getBodyMinY();
+	// bool isShot(int x, int y, Helikopter p) {
+	// 	int maxX = p.getBodyMaxX();
+	// 	int maxY = p.getBodyMaxY();
+	// 	int minX = p.getBodyMinX();
+	// 	int minY = p.getBodyMinY();
 
-		if(x>minX && x<maxX && y>minY && y<maxY) {
-			return true;
-		} else {
-			return false;
-		}
-	}*/
+	// 	if(x>minX && x<maxX && y>minY && y<maxY) {
+	// 		return true;
+	// 	} else {
+	// 		return false;
+	// 	}
+	// }
 
 	void scanLinePolygon(Polygon polygon, int r, int g, int b, int t) {
 		int x,y;
 		int n = polygon.n-1;
 
-		
+		//Draw polygon
+		drawPolygon(polygon, r, g, b, t);
+
 		//Process
 		float slope[n];
 		int line[n];
@@ -320,9 +275,6 @@ public:
 				drawLine(Point(line[i], y), Point(line[i+1], y), r, g, b, t);
 			}
 		}
-		//Draw polygon
-		drawPolygon(polygon, r, g, b, t);
-
 	}
 
 	int getBlue(int x, int y){
@@ -365,41 +317,41 @@ public:
 		}
 	}
 
-/*	void drawPatternedPolygon(int x, int y, Pattern pattern, int pa_r, int pa_g, int pa_b, int pa_t, int po_r, int po_g, int po_b, int po_t) {
-		//drawPolygon(polygon,po_r,po_g,po_b,po_t);
-		Point mid(x%15,y%15);
-		if(pattern.M[mid.y][mid.x]==1) {
-			int r=getRed(x,y);
-			int g=getGreen(x,y);
-			int b=getBlue(x,y);
-			int t=getTransparent(x,y);
-			if (r==0 && g==0 && b==0 && t==0){
-				putPixel(Point(x,y),pa_r,pa_g,pa_b,pa_t);
-				drawPatternedPolygon(x-1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-				drawPatternedPolygon(x,y-1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-				drawPatternedPolygon(x+1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-				drawPatternedPolygon(x,y+1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-			}
-		} else if(pattern.M[mid.y][mid.x]==0) {
-			int r=getRed(x,y);
-			int g=getGreen(x,y);
-			int b=getBlue(x,y);
-			int t=getTransparent(x,y);
-			if (r==0 && g==0 && b==0 && t==0){
-				putPixel(Point(x,y),po_r,po_g,po_b,po_t);
-				drawPatternedPolygon(x-1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-				drawPatternedPolygon(x,y-1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-				drawPatternedPolygon(x+1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-				drawPatternedPolygon(x,y+1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
-			}
-		}
-	}
+	// void drawPatternedPolygon(int x, int y, Pattern pattern, int pa_r, int pa_g, int pa_b, int pa_t, int po_r, int po_g, int po_b, int po_t) {
+	// 	//drawPolygon(polygon,po_r,po_g,po_b,po_t);
+	// 	Point mid(x%15,y%15);
+	// 	if(pattern.M[mid.y][mid.x]==1) {
+	// 		int r=getRed(x,y);
+	// 		int g=getGreen(x,y);
+	// 		int b=getBlue(x,y);
+	// 		int t=getTransparent(x,y);
+	// 		if (r==0 && g==0 && b==0 && t==0){
+	// 			putPixel(Point(x,y),pa_r,pa_g,pa_b,pa_t);
+	// 			drawPatternedPolygon(x-1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 			drawPatternedPolygon(x,y-1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 			drawPatternedPolygon(x+1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 			drawPatternedPolygon(x,y+1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 		}
+	// 	} else if(pattern.M[mid.y][mid.x]==0) {
+	// 		int r=getRed(x,y);
+	// 		int g=getGreen(x,y);
+	// 		int b=getBlue(x,y);
+	// 		int t=getTransparent(x,y);
+	// 		if (r==0 && g==0 && b==0 && t==0){
+	// 			putPixel(Point(x,y),po_r,po_g,po_b,po_t);
+	// 			drawPatternedPolygon(x-1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 			drawPatternedPolygon(x,y-1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 			drawPatternedPolygon(x+1,y,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 			drawPatternedPolygon(x,y+1,pattern,pa_r,pa_g,pa_b,pa_t,po_r,po_g,po_b,po_t);
+	// 		}
+	// 	}
+	// }
 
-	void drawHelikopter(Helikopter H,int r,int g,int b,int t) {
-		drawPolygon(H.head,r,g,b,t);
-		drawPolygon(H.tail,r,g,b,t);
-		drawBaling(H.baling,r,g,b,t);
-	}
+	// void drawHelikopter(Helikopter H,int r,int g,int b,int t) {
+	// 	scanLinePolygon(H.head,r,g,b,t);
+	// 	scanLinePolygon(H.tail,r,g,b,t);
+	// 	drawBaling(H.baling,r,g,b,t);
+	// }
 
 	void drawView(View V, int r, int g, int b, int t) {
 		if(!V.L.empty()) {
@@ -411,20 +363,7 @@ public:
 
 	void drawWindow(Window w, int r, int g, int b, int t){
 		drawPolygon(w.square,r,g,b,t);
-<<<<<<< HEAD
-	}*/
-	//warnain box colorpicker
-	
-	void drawBox(Box box, int r, int g, int b, int t){
-		drawPolygon(box.square,r,g,b,t);
 	}
-=======
-	}
-	//warnain box colorpicker
-	void drawBox(Box box, int r, int g, int b, int t){
-		drawPolygon(box.square,r,g,b,t);
-	}*/
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 
 	fb_var_screeninfo getvinfo() {
 		return vinfo;
