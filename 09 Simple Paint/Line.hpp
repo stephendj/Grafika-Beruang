@@ -5,28 +5,27 @@
 
 class Line {
 public:
-	Line(); // CTOR
+	Line();
 
-	Line(Point src, Point dest); // CTOR PARAM
+	Line(Point src, Point dest);
 
-	Line(const Line& l); // CCTOR
+	Line(const Line& l);
 
-	Line& operator=(const Line& l); // OPERATOR=
+	Line& operator=(const Line& l);
 
-	~Line(); // DTOR
+	~Line();
 
-	void moveLeft(float dx);
-	
 	void moveRight(float dx);
+	
+	void moveLeft(float dx);
 	
 	void moveUp(float dy);
 	
 	void moveDown(float dy);
 
-	void setRGBT(int r, int g, int b, int t);
+	void setLine(Point _src, Point _dest);
 
 	Point src, dest;
-	int r, g, b, t;
 
 private:
 

@@ -1,26 +1,25 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
-#include "Header.hpp"
+#include "header.h"
 
 class Point {
 public:
-	Point(); // CTOR
+	Point();
 
-	Point(int x, int y); // CTOR PARAM
+	Point(int x, int y);
 
-	Point(int x, int y, int z); // CTOR PARAM
+	Point(int x, int y, int z);
 
-	Point(const Point& p); // CCTOR
+	Point(const Point& p);
 
-	Point& operator=(const Point& p); // OPERATOR=
+	Point& operator=(const Point& p);
 
 	~Point();
 
-	void setRGBT(int R, int G, int B, int T);
-
-	float x, y, z;
-	int R, G, B, T;
+	int x;
+	int y;
+	int z;
 
 private:
 

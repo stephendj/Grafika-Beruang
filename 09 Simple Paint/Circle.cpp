@@ -12,6 +12,7 @@ Circle::Circle(Point _P, int _r) {
 	r = _r;
 }
 
+
 Circle::Circle(const Circle& c) {
 	P=c.P;
 	r=c.r;

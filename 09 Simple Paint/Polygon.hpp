@@ -18,7 +18,7 @@ public:
 	Polygon& operator=(const Polygon& p);
 
 	Polygon& operator<<(const vector<Point>& P);
-	
+
 	void setZ(int z);
 
 	void setRGBT(int r, int g, int b, int t);

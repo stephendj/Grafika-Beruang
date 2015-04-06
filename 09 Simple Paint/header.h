@@ -1,5 +1,11 @@
-#ifndef HEADER_HPP
-#define HEADER_HPP
+#ifndef HEADER_H
+#define HEADER_H
+
+#include <iostream>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <vector>
 
 #include <fcntl.h>			/* for fcntl */
 #include <linux/fb.h>
@@ -9,12 +15,6 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
-
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string>
-#include <vector>
 
 using namespace std;
 
