@@ -13,7 +13,6 @@
 #include "Point.hpp"
 #include "Polygon.hpp"
 #include "FrameBuffer.cpp"
-<<<<<<< HEAD
 #include "Box.hpp"
 
 using namespace std;
@@ -176,73 +175,60 @@ Color pickPolygonColor(){
 
 int main()
 {
-	
-=======
-
-using namespace std;
-
-int main()
-{
 	FrameBuffer FB;
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 	int input = 0;
 	int num_dot, radius;
 	FILE *fmouse;
 	char b[3];
-<<<<<<< HEAD
-=======
-	fmouse = fopen("/dev/input/mice","r");
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 
-	while(input!=999) {
-		while(input!=1 && input!=2 && input!=3 && input!=999) {
+	fmouse = fopen("/dev/input/mice","r");
+
+	while(input!=6) {
+		while(input!=1 && input!=2 && input!=3 && input!=4 && input!=5 && input!=6) {
 			system("clear");
-			cout << "1. Draw Triangle" << endl;
-			cout << "2. Draw Rectangle" << endl;
-			cout << "3. Draw Circle" << endl;
+			cout << "1. Draw Line" << endl;
+			cout << "2. Draw Triangle" << endl;
+			cout << "3. Draw Rectangle" << endl;
+			cout << "4. Draw Circle" << endl;
+			cout << "5. Draw Polygon" << endl;
+			cout << "6. Exit" << endl;
 			cout << "Input : ";
 			cin >> input;	
 		}
-<<<<<<< HEAD
 		
+		if(input==6) {
+			exit(0);
+		}
+
 		Color temp1;		
 		showColorPicker();
 		FB.drawBox(box,255,255,255,0);
 		
-		fmouse = fopen("/dev/input/mice","r");
-		
-=======
-
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
-		if(input==999) {
-			exit(0);
-		} else if(input==1) {
+		if(input==1) {
+			num_dot = 2;
+		} else if(input==2) {
 			num_dot = 3;
-<<<<<<< HEAD
-			getchar();
-			temp1 = pickPolygonColor();
-		} else if(input==2) {
-			num_dot = 4;
 			getchar();
 			temp1 = pickPolygonColor();
 		} else if(input==3) {
+			num_dot = 4;
+			getchar();
+			temp1 = pickPolygonColor();
+		} else if(input==4) {
 			num_dot = 1;
 			getchar();
 			temp1 = pickPolygonColor();
-=======
-		} else if(input==2) {
-			num_dot = 4;
-		} else if(input==3) {
-			num_dot = 1;
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 			cout << "Masukkan radius : ";
 			cin >> radius;
+		} else if(input==5) {
+			getchar();
+			temp1 = pickPolygonColor();
+			cout << "Masukkan jumlah sisi : ";
+			cin >> num_dot;
 		}
 
-<<<<<<< HEAD
 		FB.drawSquare(Point(0,0), Point(799,599),0,0,0,0);
-=======
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
+
 		Polygon cursor ("mouse");
 		FB.drawPolygon(cursor, 0,255,100,0);
 
@@ -303,24 +289,18 @@ int main()
 			}
 		}
 		
+		FB.drawPolygon(cursor, 0,0,0,0);
 		Polygon temp(listOfPoints);
-		if(input!=3) {
-<<<<<<< HEAD
-			FB.scanLinePolygon(temp, temp1.red, temp1.green, temp1.blue, temp1.trans);	
-		} else {
+		if(input==1) {
+			FB.drawLine(listOfPoints[0], listOfPoints[1], 255, 0, 0, 0);
+		} else if(input==4) {
 			FB.drawFilledCircle(Circle(temp.e[0], radius), temp1.red, temp1.green, temp1.blue, temp1.trans);
-		}
-		
-		getchar();
-=======
-			FB.scanLinePolygon(temp, 255, 0, 0, 0);	
 		} else {
-			FB.drawFilledCircle(Circle(temp.e[0], radius), 255, 0, 0, 0);
+			FB.scanLinePolygon(temp, temp1.red, temp1.green, temp1.blue, temp1.trans);
 		}
 		
 		getchar();
 		getchar();
->>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 		input = 0;
 	}
 
