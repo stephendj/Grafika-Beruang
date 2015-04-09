@@ -96,6 +96,15 @@ int main()
 				FB.drawSquare(Point(cursor.getMinX()-1, cursor.getMinY()-1), Point(cursor.getMinX()+1, cursor.getMinY()+1), 0, 255, 100, 0);
 				listOfPoints.push_back(Point(cursor.getMinX(), cursor.getMinY()));
 			}
+
+			if(listOfPoints.size()>0) {
+				Point src(listOfPoints[listOfPoints.size()-1].x, listOfPoints[listOfPoints.size()-1].y);
+				Point dest(Point(cursor.getMinX(), cursor.getMinY()));
+				
+				FB.drawThickLine(Point(src.x, src.y), Point(dest.x, dest.y), 0, 0, 0, 0);
+				
+				FB.drawLine(src, Point(cursor.getMinX(), cursor.getMinY()), 255, 0, 0, 0);
+			}
 		}
 		
 		Polygon temp(listOfPoints);
