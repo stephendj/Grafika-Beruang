@@ -1,9 +1,17 @@
 #include "Line.hpp"
 #include "Polygon.hpp"
 #include "Circle.hpp"
+<<<<<<< HEAD
+#include "Box.hpp"
 
 class FrameBuffer {
 public:
+
+=======
+
+class FrameBuffer {
+public:
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 	FrameBuffer() {
 		fbfd = open("/dev/fb0",O_RDWR);
 		if (!fbfd) {
@@ -403,11 +411,20 @@ public:
 
 	void drawWindow(Window w, int r, int g, int b, int t){
 		drawPolygon(w.square,r,g,b,t);
+<<<<<<< HEAD
+	}*/
+	//warnain box colorpicker
+	
+	void drawBox(Box box, int r, int g, int b, int t){
+		drawPolygon(box.square,r,g,b,t);
+	}
+=======
 	}
 	//warnain box colorpicker
 	void drawBox(Box box, int r, int g, int b, int t){
 		drawPolygon(box.square,r,g,b,t);
 	}*/
+>>>>>>> dee2d0843cb129d6123aaf066d8dc96ca3a07af9
 
 	fb_var_screeninfo getvinfo() {
 		return vinfo;
