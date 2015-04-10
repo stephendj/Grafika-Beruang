@@ -211,7 +211,7 @@ int main()
 			getchar();
 			temp1 = pickPolygonColor();
 		} else if(input==3) {
-			num_dot = 4;
+			num_dot = 2;
 			getchar();
 			temp1 = pickPolygonColor();
 		} else if(input==4) {
@@ -282,10 +282,10 @@ int main()
 			if(listOfPoints.size()>0) {
 				Point src(listOfPoints[listOfPoints.size()-1].x, listOfPoints[listOfPoints.size()-1].y);
 				Point dest(Point(cursor.getMinX(), cursor.getMinY()));
-				
-				FB.drawThickLine(Point(src.x, src.y), Point(dest.x, dest.y), 0, 0, 0, 0);
-				
-				FB.drawLine(src, Point(cursor.getMinX(), cursor.getMinY()), 255, 0, 0, 0);
+				if(input!=3) {
+					FB.drawThickLine(Point(src.x, src.y), Point(dest.x, dest.y), 0, 0, 0, 0);
+					FB.drawLine(src, Point(cursor.getMinX(), cursor.getMinY()), 255, 0, 0, 0);
+				}
 			}
 		}
 		
@@ -293,6 +293,19 @@ int main()
 		Polygon temp(listOfPoints);
 		if(input==1) {
 			FB.drawLine(listOfPoints[0], listOfPoints[1], 255, 0, 0, 0);
+		} else if(input==3) {
+			Point src(listOfPoints[0].x, listOfPoints[0].y);
+			Point dest(listOfPoints[1].x, listOfPoints[1].y);
+
+			if(dest.x > src.x && dest.y < src.y) {
+				FB.drawSquare(Point(src.x, dest.y), Point(dest.x, src.y), temp1.red, temp1.green, temp1.blue, temp1.trans);
+			} else if(dest.x < src.x && dest.y < src.y) {
+				FB.drawSquare(Point(dest.x, dest.y), Point(src.x, src.y), temp1.red, temp1.green, temp1.blue, temp1.trans);
+			} else if(dest.x < src.x && dest.y > src.y) {
+				FB.drawSquare(Point(dest.x, src.y), Point(src.x, dest.y), temp1.red, temp1.green, temp1.blue, temp1.trans);
+			} else {
+				FB.drawSquare(Point(src.x, src.y), Point(dest.x, dest.y), temp1.red, temp1.green, temp1.blue, temp1.trans);
+			}
 		} else if(input==4) {
 			FB.drawFilledCircle(Circle(temp.e[0], radius), temp1.red, temp1.green, temp1.blue, temp1.trans);
 		} else {
