@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1428717508 source:c:\users\susanti_2\documents\codeblocks projects\freehand\freehand.cpp
+	<windows.h>
+	<iostream>
+	<stdlib.h>
+	<GL/glut.h>
+	<vector>
+
+1426322040 c:\tdm-gcc-64\include\gl\glut.h
+	"freeglut_std.h"
+
+1426322040 c:\tdm-gcc-64\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1428664381 source:c:\users\susanti_2\documents\codeblocks projects\freehand\mouse.cpp
+
+1428848189 source:c:\users\susanti_2\documents\codeblocks projects\freehand\drawingpen.cpp
+	<iostream>
+	<string>
+	<stdlib.h>
+	<GL/glut.h>
+	<windows.h>
+	<vector>
+
